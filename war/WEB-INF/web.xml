@@ -12,6 +12,14 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 		<servlet-name>Hello</servlet-name>
 		<url-pattern>/hello</url-pattern>
 	</servlet-mapping>
+	<servlet>
+		<servlet-name>Stock</servlet-name>
+		<servlet-class>com.mta.javacourse.Stock</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Stock</servlet-name>
+		<url-pattern>/stockdetails</url-pattern>
+	</servlet-mapping>
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
 	</welcome-file-list>
