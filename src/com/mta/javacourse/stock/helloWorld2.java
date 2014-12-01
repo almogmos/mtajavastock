@@ -1,4 +1,4 @@
-package com.mta.javacourse;
+package com.mta.javacourse.stock;
 
 public class helloWorld2 {
 	

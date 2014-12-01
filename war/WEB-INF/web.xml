@@ -6,7 +6,7 @@ xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
 http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 	<servlet>
 		<servlet-name>Hello</servlet-name>
-		<servlet-class>com.mta.javacourse.HelloServlet</servlet-class>
+		<servlet-class>com.mta.javacourse.stock.HelloServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>Hello</servlet-name>
@@ -14,13 +14,21 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 	</servlet-mapping>
 	<servlet>
 		<servlet-name>Stock</servlet-name>
-		<servlet-class>com.mta.javacourse.Stock</servlet-class>
+		<servlet-class>com.mta.javacourse.stock.Stock</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>Stock</servlet-name>
 		<url-pattern>/stockdetails</url-pattern>
+	</servlet-mapping>	
+	<servlet>
+		<servlet-name>PortfolioServlet</servlet-name>
+		<servlet-class>com.mta.javacourse.stock.servlet.PortfolioServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>PortfolioServlet</servlet-name>
+		<url-pattern>/portfolio</url-pattern>
 	</servlet-mapping>
 	<welcome-file-list>
-		<welcome-file>index.html</welcome-file>
+	<welcome-file>index.html</welcome-file>
 	</welcome-file-list>
 </web-app>

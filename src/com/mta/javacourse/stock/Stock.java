@@ -1,4 +1,4 @@
-package com.mta.javacourse;
+package com.mta.javacourse.stock;
 
 import java.io.IOException;
 //import java.util.Calendar;
@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class StockDetails extends HttpServlet {
+public class Stock extends HttpServlet {
 
 	private String symbol;
 	private float ask, bid;

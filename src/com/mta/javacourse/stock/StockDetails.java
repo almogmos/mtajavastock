@@ -1,4 +1,4 @@
-package com.mta.javacourse;
+package com.mta.javacourse.stock;
 
 import java.util.Date;
 import java.io.IOException;
@@ -7,14 +7,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class Stock extends HttpServlet {
+public class StockDetails extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
 		resp.setContentType("text/html");
 
-		StockDetails stock1 = new StockDetails();
-		StockDetails stock2 = new StockDetails();
-		StockDetails stock3 = new StockDetails();
+		Stock stock1 = new Stock();
+		Stock stock2 = new Stock();
+		Stock stock3 = new Stock();
 
 		Date date = new java.util.Date();
 		date.setYear(2014);
