@@ -12,17 +12,17 @@ import com.mta.javacourse.stock.model.Stock;
 import com.mta.javacourse.stock.model.Portfolio;
 import com.mta.javacourse.stock.service.PortfolioService;
 
-public class PortfolioServlet extends HttpServlet{
+public class PortfolioServlet extends HttpServlet {
 
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
 		resp.setContentType("text/html");
-	
-	PortfolioService portfolioService = new PortfolioService();
-	Portfolio portfolio = portfolioService.getPortfolio();
-	Stock[] stocks = portfolio.getStocks();
 
-	resp.getWriter().println(portfolio.getHtmlString());
-			
+		PortfolioService portfolioService = new PortfolioService();
+		Portfolio portfolio = portfolioService.getPortfolio();
+		Stock[] stocks = portfolio.getStocks();
+
+		resp.getWriter().println(portfolio.getHtmlString());
+
 	}
 }

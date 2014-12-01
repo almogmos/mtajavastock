@@ -1,7 +1,6 @@
 package com.mta.javacourse.stock.model;
 
 import java.io.IOException;
-//import java.util.Calendar;
 import java.util.Date;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -12,10 +11,6 @@ public class Stock extends HttpServlet {
 	private String symbol;
 	private float ask, bid;
 	private Date date;
-
-	// Calendar c = Calendar.getInstance();
-	// c.set(1978, 0, 5, 0, 0);
-	// Date mydate = c.getTime();
 
 	public String getSymbolName() {
 		return symbol;
@@ -52,9 +47,10 @@ public class Stock extends HttpServlet {
 	public String getHtmlDescription() {
 		String DateStr = date.getMonth() + "/" + date.getDate() + "/"
 				+ date.getYear();
-		String stockHtmlDetailsString = "<b>" + "Stock symbol: " + "</b>" + symbol
-				+ ", " + "<b>" + "ask" + "</b>: " + ask + ", " + "<b>" + "bid" + "</b>" +": " + bid
-				+ ", " + "<b>" + "date" + "</b>" + ": " + DateStr + ".";
+		String stockHtmlDetailsString = "<b>" + "Stock symbol: " + "</b>"
+				+ symbol + ", " + "<b>" + "ask" + "</b>: " + ask + ", " + "<b>"
+				+ "bid" + "</b>" + ": " + bid + ", " + "<b>" + "date" + "</b>"
+				+ ": " + DateStr + ".";
 		return stockHtmlDetailsString;
 	}
 }
