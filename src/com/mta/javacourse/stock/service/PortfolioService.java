@@ -42,6 +42,8 @@ public class PortfolioService {
 		myPortfolio.addStock(stock2);
 		myPortfolio.addStock(stock3);
 		
+		myPortfolio.setTitle("The Portfolio");
+		
 		return myPortfolio;
 		}
 		
