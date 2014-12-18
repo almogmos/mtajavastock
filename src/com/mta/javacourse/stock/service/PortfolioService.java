@@ -3,16 +3,20 @@ package com.mta.javacourse.stock.service;
 import java.util.Date;
 
 import com.mta.javacourse.stock.model.Portfolio;
-import com.mta.javacourse.stock.model.Portfolio.StockStatus;
 import com.mta.javacourse.stock.model.Stock;
+import com.mta.javacourse.stock.model.Portfolio.StockStatus;;
 
-public class PortfolioService { // the service. create instances and stocks.
 
-	private static final int MAX_PORTFOLIO_SIZE = 5;
+public class PortfolioService { 
 	
 	public Portfolio getPortfolio() {
-		Portfolio myPortfolio = new Portfolio(new Stock[MAX_PORTFOLIO_SIZE], new StockStatus[MAX_PORTFOLIO_SIZE], "unknown", 0); //portfolio instance
-
+		
+		Portfolio myPortfolio = new Portfolio();
+		
+		myPortfolio.setTitle("Exercise 7 portfolio");
+		myPortfolio.setBalance(10000);
+		
+		
 		Stock stock1 = new Stock(); //stock instance
 		Stock stock2 = new Stock(); //stock instance
 		Stock stock3 = new Stock(); //stock instance
@@ -25,26 +29,32 @@ public class PortfolioService { // the service. create instances and stocks.
 		//enter details
 		
 		stock1.setSymbolName("PIH");
-		stock1.setAsk(12.4f);
-		stock1.setBid(13.1f);
+		stock1.setAsk(10);
+		stock1.setBid(8.5f);
 		stock1.setDate(date);
+		
 
 		stock2.setSymbolName("AAL");
-		stock2.setAsk(5.5f);
-		stock2.setBid(5.78f);
+		stock2.setAsk(30);
+		stock2.setBid(25.5f);
 		stock2.setDate(date);
 
 		stock3.setSymbolName("CAAS");
-		stock3.setAsk(31.5f);
-		stock3.setBid(31.2f);
+		stock3.setAsk(20);
+		stock3.setBid(15.5f);
 		stock3.setDate(date);
 
-		myPortfolio.addStock(stock1); //add stock no.1 to array
-		myPortfolio.addStock(stock2); //add stock no.2 to array
-		myPortfolio.addStock(stock3); //add stock no.1 to array
-
-		myPortfolio.setTitle("Portfolio #1"); //the title
-
+		myPortfolio.addStock(stock1);
+		myPortfolio.addStock(stock2);
+		myPortfolio.addStock(stock3);
+		
+		myPortfolio.buyStock("PIH", 20);
+		myPortfolio.buyStock("AAL", 30);
+		myPortfolio.buyStock("CAAS", 40);
+		
+		myPortfolio.sellStock("AAL", -1);
+		myPortfolio.removeStock("CAAS");
+		
 		return myPortfolio;
 	}
 }
