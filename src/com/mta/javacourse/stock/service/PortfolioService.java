@@ -13,7 +13,7 @@ public class PortfolioService {
 		
 		Portfolio myPortfolio = new Portfolio();
 		
-		myPortfolio.setTitle("Exercise 7 portfolio");
+		myPortfolio.setTitle("<center>Exercise 7 portfolio</center>");
 		myPortfolio.setBalance(10000);
 		
 		

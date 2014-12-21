@@ -162,11 +162,12 @@ public class Portfolio {
 					if (stockQuantity > this.stockStatus[i].getStockQuantity()){
 						askingQuantity = stockQuantity; 
 						stockQuantity = this.stockStatus[i].getStockQuantity();
-						System.out.println ("You asked to sell " + askingQuantity + "but you had " + stockQuantity + "so we sold only them");
+						System.out.println ("ERROR! You asked to sell " + askingQuantity + "but you had " + stockQuantity);
 					}
+					else {
 					updateBalance(stockQuantity * this.stocks[i].getBid());
 					this.stockStatus[i].setStockQuantity(this.stockStatus[i].getStockQuantity() - stockQuantity);
-					
+					}
 				}
 				return true;
 			}
@@ -235,7 +236,7 @@ public class Portfolio {
 	
 	
 	public String getHtmlString() {
-		String portfolioHtmlString = "<h1>Portfolio title: " + getTitle() + "</h1><br>";
+		String portfolioHtmlString = "<h1>" + getTitle() + "</h1><br>";
 		portfolioHtmlString += "<b>Total Portfolio Value: </b>" + getTotalValue(stocks) + "$, <b>Total Stock value: </b>" + getStocksValue(stocks) + "$, <b>Balance: </b>" + getBalance() + "<br>";
 		portfolioHtmlString += "<b>Stock Details:</b><br>";
 		for (int i = 0; i < portfolioSize; i++) {
