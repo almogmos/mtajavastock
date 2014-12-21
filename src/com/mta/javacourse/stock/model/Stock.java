@@ -25,6 +25,8 @@ public class Stock { //The stock class.
 		setAsk(s.getAsk());
 		setBid(s.getBid());
 		setDate(s.getDate());	
+		date = new Date(s.getDate().getTime());
+
 	}
 
 	public String getSymbolName() {
