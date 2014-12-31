@@ -9,24 +9,26 @@ import javax.servlet.http.HttpServletResponse;
 
 public class Stock { //The stock class.
 
-	private String symbol;
-	private float ask, bid;
-	private Date date;
+	protected String symbol;
+	protected float ask, bid;
+	protected Date date;
 	
-	public Stock() { //c'tor
-		symbol = "unknown";
-		ask = 0;
-		bid = 0;
-		date = null;
+	
+	public Stock(){
+	}
+	
+	public Stock(String symbol, float ask, float bid, Date date) { //c'tor
+		
+			setSymbolName(symbol);
+			setAsk(ask);
+			setBid(bid);
+			setDate(date);
 	}
 
 	public Stock(Stock s){ //copy c'tor
-		setSymbolName(s.getSymbolName());
-		setAsk(s.getAsk());
-		setBid(s.getBid());
-		setDate(s.getDate());	
-		date = new Date(s.getDate().getTime());
-
+		this(s.getSymbolName(), s.getAsk(), s.getBid(), new Date(s.getDate().getTime()));
+		
+	
 	}
 
 	public String getSymbolName() {
