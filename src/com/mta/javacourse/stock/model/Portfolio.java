@@ -2,6 +2,10 @@ package com.mta.javacourse.stock.model;
 
 import java.util.Date;
 
+import com.mta.javacourse.stock.exception.BalanceException;
+import com.mta.javacourse.stock.exception.PortfolioFullException;
+import com.mta.javacourse.stock.exception.StockAlreadyExistException;
+import com.mta.javacourse.stock.exception.StockNotExistException;
 import com.mta.javacourse.stock.model.Stock;
 import com.mta.javacourse.stock.model.StockStatus;
 
@@ -72,18 +76,18 @@ public class Portfolio {
 	}
 	
 	
-	public void addStock(Stock stock) { // get new stock name and put it in the stock's array
+	public void addStock(Stock stock) throws Exception { // get new stock name and put it in the stock's array
 		if (portfolioSize >= MAX_PORTFOLIO_SIZE){
-			System.out.println ("Cant add new stock, portfolio can have only " + portfolioSize + " stocks");
-			return;	
+			//System.out.println ("Cant add new stock, portfolio can have only " + portfolioSize + " stocks");
+			throw new PortfolioFullException (getPortfolioSize());
 		}
 		else {
 			for (int i = 0; i < portfolioSize; i++)
 			{
 			if(stock.getSymbolName().equals(stockStatus[i].getSymbolName()) )
 			{
-				System.out.println ("Cant add this Stock. It's already yours");
- 				return;
+				//System.out.println ("Cant add this Stock. It's already yours");
+				throw new StockAlreadyExistException (stock.getSymbolName());
 			}
 		}
 			stockStatus[portfolioSize] = new StockStatus(stock.getSymbolName(), stock.getAsk(), stock.getBid(), stock.getDate(), ALGO_RECOMMENDATION.DO_NOTING, 0);
@@ -96,7 +100,7 @@ public class Portfolio {
 	}
 	
 	
-	public boolean removeStock (String symbol) { //when we want to sell some, or all, symbol stocks
+	public void removeStock (String symbol)  throws StockNotExistException { //when we want to sell some, or all, symbol stocks
 		for (int i = 0; i < portfolioSize; i++) {
 			if (symbol.equals(this.stockStatus[i].getSymbolName())){
 				sellStock(this.stockStatus[i].getSymbolName(), this.stockStatus[i].getStockQuantity());
@@ -109,14 +113,13 @@ public class Portfolio {
 					}
 					portfolioSize--;
 				}
-				return true;					
 			}		
-		}		
-		return false;
+		}
+		throw new StockNotExistException (symbol);		
 	}
 	
 
-	public boolean sellStock (String symbol, int stockQuantity) { //the act of the sell (with bid price)
+	public void sellStock (String symbol, int stockQuantity) { //the act of the sell (with bid price)
 		int askingQuantity = 0;
 		
 		for (int i = 0; i < portfolioSize; i++) {
@@ -129,7 +132,7 @@ public class Portfolio {
 
 				else if (stockQuantity<-1){
 					System.out.println ("Negative stock quantity is not an option");
-					return false;
+					return;
 				}
 	
 				else { //bigger than -1
@@ -143,14 +146,12 @@ public class Portfolio {
 					this.stockStatus[i].setStockQuantity(this.stockStatus[i].getStockQuantity() - stockQuantity);
 					}
 				}
-				return true;
 			}
 			
 		}
-		return false;
 	}
 	
-	public boolean buyStock (String symbol, int stockQuantity) {//buy stock with ask price
+	public void buyStock (String symbol, int stockQuantity)  throws BalanceException {//buy stock with ask price
 		int askingQuantity = 0;
 		float realQuantity = 0;
 		for (int i = 0; i < portfolioSize; i++) {
@@ -165,28 +166,27 @@ public class Portfolio {
 
 				else if (stockQuantity<-1){
 					System.out.println ("Negative stock quantity is not an option");
-					return false;
+					return;
 				}
 	
 				else { //bigger that -1
 					if (stockQuantity * this.stockStatus[i].getAsk() > this.balance) {
-						askingQuantity = stockQuantity; 
-						realQuantity = getBalance() / this.stockStatus[i].getAsk();
-						System.out.println ("You asked to buy " + askingQuantity + " stocks, but you allowed to buy " + realQuantity + " stocks, so we bought only them");
-						updateBalance(-1 * (int)realQuantity * this.stockStatus[i].getAsk());
-						this.stockStatus[i].setStockQuantity(this.stockStatus[i].getStockQuantity() + (int)realQuantity);		
+						//askingQuantity = stockQuantity; 
+						//realQuantity = getBalance() / this.stockStatus[i].getAsk();
+						//System.out.println ("sorry, but you have not enough balance to buy this");//("You asked to buy " + askingQuantity + " stocks, but you allowed to buy " + realQuantity + " stocks, so we bought only them");
+						throw new BalanceException (getBalance());
+						//updateBalance(-1 * (int)realQuantity * this.stockStatus[i].getAsk());
+						//this.stockStatus[i].setStockQuantity(this.stockStatus[i].getStockQuantity() + (int)realQuantity);		
 					}
 					else {
 					updateBalance(-1 * stockQuantity * this.stockStatus[i].getAsk());
 					this.stockStatus[i].setStockQuantity(this.stockStatus[i].getStockQuantity() + stockQuantity);		
 					}
 				}
-				return true;
 			}
 			
 		}	
 		
-		return false;		
 	}
 
 	public float getStocksValue (Stock stocks[]){ //the value of all our stocks in portfolio
