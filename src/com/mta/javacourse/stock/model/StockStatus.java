@@ -7,13 +7,19 @@ import com.mta.javacourse.stock.model.Portfolio.ALGO_RECOMMENDATION;
 
 public class StockStatus extends Stock  {
 	
-	private ALGO_RECOMMENDATION recommendation;
+	public ALGO_RECOMMENDATION recommendation;
 	private int stockQuantity;
 	
 	public StockStatus(String symbol, float ask, float bid, Date date, ALGO_RECOMMENDATION nrecommendation, int nstockQuantity){ //c'tor
 		super(symbol, ask,bid, date);
 		recommendation = nrecommendation;
 		stockQuantity = nstockQuantity;
+	}
+	
+	public StockStatus(Stock stock) {
+		super(stock.getSymbolName(), stock.getAsk(), stock.getBid(), stock.getDate());
+		stockQuantity = 0;
+		recommendation = ALGO_RECOMMENDATION.DO_NOTING;
 	}
 	
 	public StockStatus (StockStatus s) {// copy c'tor

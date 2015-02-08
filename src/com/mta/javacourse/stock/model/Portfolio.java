@@ -1,6 +1,7 @@
 package com.mta.javacourse.stock.model;
 
 import java.util.Date;
+import java.util.List;
 
 import com.mta.javacourse.stock.exception.BalanceException;
 import com.mta.javacourse.stock.exception.PortfolioFullException;
@@ -11,7 +12,7 @@ import com.mta.javacourse.stock.model.StockStatus;
 
 public class Portfolio {
 
-	private final static int MAX_PORTFOLIO_SIZE = 5;
+	public final static int MAX_PORTFOLIO_SIZE = 5;
 	public enum ALGO_RECOMMENDATION {DO_NOTING, BUY, SELL};
 	private StockStatus[] stockStatus; //stock's status
 	private String title; 
@@ -41,6 +42,21 @@ public class Portfolio {
 		this.balance = p.balance;
 		this.portfolioSize = p.portfolioSize;
 		this.title = p.title;
+	}
+	
+	public Portfolio(List<StockStatus> stockStatuses) {
+		this(new StockStatus[MAX_PORTFOLIO_SIZE], "UNKNOWE", 0,0);
+		for(int i = 0; i < stockStatuses.size(); i++)
+			this.stockStatus[i] = stockStatuses.get(i);
+	}
+	
+	public StockStatus findBySymbol (String symbol)
+	{
+		for(int i = 0; i < portfolioSize; i++){
+			if(stockStatus[i].getSymbolName().toLowerCase().equals(symbol))// == symbol)
+				return stockStatus[i];
+		}
+		return null;
 	}
 
 	public StockStatus[] getStockStatus() {

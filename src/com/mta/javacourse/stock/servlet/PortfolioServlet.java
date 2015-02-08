@@ -1,44 +1,38 @@
 package com.mta.javacourse.stock.servlet;
 
-import java.io.IOException;
+import  com.mta.javacourse.stock.dto.PortfolioDto;
+import  com.mta.javacourse.stock.dto.PortfolioTotalStatus;
+import  com.mta.javacourse.stock.model.StockStatus;
 
-import javax.servlet.http.HttpServlet;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.mta.javacourse.stock.exception.BalanceException;
-import com.mta.javacourse.stock.exception.PortfolioFullException;
-import com.mta.javacourse.stock.exception.StockAlreadyExistException;
-import com.mta.javacourse.stock.exception.StockNotExistException;
-import com.mta.javacourse.stock.model.Stock;
-import com.mta.javacourse.stock.model.Portfolio;
-import com.mta.javacourse.stock.service.PortfolioService;
+public class PortfolioServlet extends AbstractAlgoServlet {
 
-@SuppressWarnings("serial")
-public class PortfolioServlet extends HttpServlet { // the servlet of portfolio
+	private static final long serialVersionUID = 1L;
 
-	public void doGet(HttpServletRequest req, HttpServletResponse resp)
-			throws IOException {
-		resp.setContentType("text/html");
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-		PortfolioService portfolioService = new PortfolioService(); // instance portfolio service
-	
-		try {
-			Portfolio portfolio = portfolioService.getPortfolio();	
-			resp.getWriter().println(portfolio.getHtmlString() + "<br>");
-		}
-		catch (BalanceException e1) {
-			resp.getWriter().println(e1.getMessage());
-		} catch (PortfolioFullException e2) {
-			resp.getWriter().println(e2.getMessage());
-		} catch (StockAlreadyExistException e3) {
-				resp.getWriter().println(e3.getMessage());
-		} catch (StockNotExistException e4) {
-			resp.getWriter().println(e4.getMessage());
-		}  
-		catch (Exception e) {
-			throw new RuntimeException(e);
+		resp.setContentType("application/json");
+		
+		PortfolioTotalStatus[] totalStatus = portfolioService.getPortfolioTotalStatus();
+		StockStatus[] stockStatusArray = portfolioService.getPortfolio().getStockStatus();
+		List<StockStatus> stockStatusList = new ArrayList<>();
+		for (StockStatus ss : stockStatusArray) {
+			if(ss != null)
+				stockStatusList.add(ss);
 		}
 		
-		}
+		PortfolioDto pDto = new PortfolioDto();
+		pDto.setTitle(portfolioService.getPortfolio().getTitle());
+		pDto.setTotalStatus(totalStatus);
+		pDto.setStockTable(stockStatusList);
+		resp.getWriter().print(withNullObjects().toJson(pDto));
 	}
+}
